@@ -1,21 +1,21 @@
 // a+b*c -> ab*+
-
 #include<stdio.h>
-#define maxsize 3
-char stack[100];
-char exp[1000];
 
-int top = -1;
+char stack[100];
+char expression[1000];
+
+int top = 0;
 
 void push(char val) {
-    if (top == maxsize - 1) {
+    if (top == sizeof(expression)) {
         printf("stack overflow\n");
     } else {
-        top++;
         stack[top] = val;
+        top++;
     }
 }
-void pop(char val) {
+void pop() {
+        char val;
     if (top < 0) {
         printf("stack empty\n");
     } else {
@@ -24,59 +24,61 @@ void pop(char val) {
         top--;
     }
 }
-void display(){
-    
-        for (int i = 0; i <= top; i++) {
-            printf("%c", stack[i]);
-        }
-        printf("\n");
-}
+
 int prec(char c){
-    if(c=='+'){
+    if(c=='+' || c=='-'){
         return 1;
     }
-    if(c=='-'){
-        return 2;
-    }
-    if(c=='*'){
+   
+    if(c=='*' || c=='/'){
         return 3;
     }
-    if(c=='/'){
-        return 4;
-    }
+    
     else{
         return -1;
     }
 }
+void display() {
+    if (top < 0) {
+        printf("stack is empty\n");
+    } else {
+        for (int i = 0; i <= top; i++) {
+            printf("%c", stack[i]);
+        }
+        printf("\n");
+    }
+}
+//(a-b/c)*(a/k-l)
 void main(){
     int i;
     printf("enter ur expression:");
-    scanf("%s",exp);
+    scanf("%s",expression);
     
-    for(i=0;exp[i]!='\0';i++){
-        if(exp[i]=='('){
-            push(exp[i]);
+    for(i=0;expression[i]!='\0';i++){
+        if(expression[i]=='('){
+            push(expression[i]);
         }
-        else if(exp[i]==')'){
+        else if(expression[i]==')'){
             while(stack[top]!='('){
-                pop(exp[i]);
+                pop(expression[i]);
             }
         }
-        else if(exp[i]=='+' || exp[i]=='-' ||exp[i]=='*' ||exp[i]=='/'){
-            if((prec[exp[i]]) > (prec[stack[top]])){
+        else if(expression[i]=='+' || expression[i]=='-' ||expression[i]=='*' ||expression[i]=='/'){
+            if((prec(expression[i])) < (prec(stack[top]))){
                 pop(stack[top]);
-                stack[top]=exp[i];
+                stack[top]=expression[i];
                 top++;
             }
             else{
-                push(exp[i]);
-                stack[top]=exp[i];
+                push(expression[i]);
+                stack[top]=expression[i];
                 top++;
             }
         }
-        else{
-            printf("%c",exp[i]);
+        else if(expression[i]>='a' && expression[i]<='z' || expression[i]>='A' && expression[i]<='Z' ){
+            printf("%c",expression[i]);
         }
     }
+    display();
     return;
 }
