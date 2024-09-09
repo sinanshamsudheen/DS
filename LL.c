@@ -22,6 +22,46 @@ void insertAtBeginning(struct Node** head, int data) {
     *head = newNode;
 }
 
+// Function to delete a node at the head
+void deleteAtHead(struct Node** head) {
+    if (*head == NULL) return;
+    struct Node* temp = *head;
+    *head = (*head)->next;
+    free(temp);
+}
+
+void deleteAtEnd(struct Node** head) {
+    if (*head == NULL){
+        printf("Empty list.");
+    }
+    
+    struct Node* temp = *head;
+    struct Node* prev = NULL;
+    
+    // If there is only one node
+    if (temp->next == NULL) {
+        free(temp);
+        *head = NULL;
+        return;
+    }
+    
+    while (temp->next != NULL) {
+        prev = temp;
+        temp = temp->next;
+    }
+    
+    prev->next = NULL;
+    free(temp);
+}
+
+void traverse(struct Node* head) {
+    struct Node* temp = head;
+    while (temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
 // Function to insert a node at the end
 void insertAtEnd(struct Node** head, int data) {
     struct Node* newNode = createNode(data);
@@ -36,8 +76,13 @@ void insertAtEnd(struct Node** head, int data) {
     temp->next = newNode;
 }
 
+
+
+
+// Function to delete a node at the end
+
 // Function to delete a node with a given key
-void deleteNode(struct Node** head, int key) {
+void deleteAtPos(struct Node** head, int key) {
     struct Node* temp = *head;
     struct Node* prev = NULL;
     
@@ -62,70 +107,56 @@ void deleteNode(struct Node** head, int key) {
     free(temp);
 }
 
-// Function to search for a node with a given key
-int search(struct Node* head, int key) {
-    struct Node* current = head;
-    while (current != NULL) {
-        if (current->data == key) {
-            return 1; // Key found
-        }
-        current = current->next;
+// Function to insert a node at a specific position
+void insertAtPos(struct Node** head, int data, int pos) {
+    struct Node* newNode = createNode(data);
+    if (pos == 0) {
+        newNode->next = *head;
+        *head = newNode;
+        return;
     }
-    return 0; // Key not found
-}
 
-
-
-
-
-// Function to traverse and print the linked list
-void traverse(struct Node* head) {
-
-    struct Node* temp = head;
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
+    struct Node* temp = *head;
+    for (int i = 0; i < pos - 1 && temp != NULL; i++) {
         temp = temp->next;
     }
-    printf("NULL\n");
+
+    if (temp != NULL) {
+        newNode->next = temp->next;
+        temp->next = newNode;
+    } else {
+        printf("Position out of bounds.\n");
+        free(newNode);
+    }
 }
 
+// Function to traverse and print the linked list
 
 
-
-
-
-// Driver Code
 int main() {
     struct Node* head = NULL;
-    insertAtBeginning(&head, 5);
-    insertAtBeginning(&head, 6);
-    insertAtBeginning(&head, 7);
-    insertAtBeginning(&head, 8);
+
+    // Insertions
+    insertAtEnd(&head, 10);
+    insertAtEnd(&head, 20);
+    insertAtEnd(&head, 30);
+    printf("Linked List after insertions: ");
     traverse(head);
-    
-    int key = 10;
-    if (search(head, key)) {
-        printf("Element %d is found in the linked list.\n", key);
-    } else {
-        printf("Element %d is not found in the linked list.\n", key);
-    }
-    
-    // // Insertion
-    // insertAtEnd(&head, 10);
-    // insertAtEnd(&head, 20);
-    // insertAtEnd(&head, 30);
-    // printf("Linked List after insertions: ");
-    // traverse(head);
-    
-    // // Deletion
-    // deleteNode(&head, 20);
-    // printf("Linked List after deletion of 20: ");
-    // traverse(head);
-    
-    // // Searching
-    
-    // // Traversal
-    // printf("Final Linked List: ");
-    
+
+    // Deletion at head
+    deleteAtHead(&head);
+    printf("Linked List after deletion at head: ");
+    traverse(head);
+
+    // Deletion at end
+    deleteAtEnd(&head);
+    printf("Linked List after deletion at end: ");
+    traverse(head);
+
+    // Insertion at specific position
+    insertAtPos(&head, 25, 1);
+    printf("Linked List after insertion at position 1: ");
+    traverse(head);
+
     return 0;
 }
