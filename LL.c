@@ -32,7 +32,8 @@ void deleteAtHead(struct Node** head) {
 
 void deleteAtEnd(struct Node** head) {
     if (*head == NULL){
-        printf("Empty list.");
+        printf("Empty list.\n");
+        return; // Fix: Added return to prevent further execution
     }
     
     struct Node* temp = *head;

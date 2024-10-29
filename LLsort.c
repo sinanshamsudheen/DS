@@ -9,7 +9,7 @@ struct Node* createNode(int data){
     struct Node* newNode=(struct Node*)malloc(sizeof(struct Node));
     newNode->data=data;
     newNode->next=NULL;
-    return newNode;
+    return newNodeoooo;
 }
 
 void insertAtEnd(struct Node** head, int data) {
@@ -71,3 +71,8 @@ void main(){
     sortList(&head);
     return;
 }
+// op,
+// enter the limit: 3
+// enter the list: 5 8 2
+// 5 -> 8 -> 2 -> NULL
+// sorted list: 2 -> 5 -> 8 -> NULL

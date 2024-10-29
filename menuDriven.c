@@ -26,7 +26,6 @@ void display() {
     if (top < 0) {
         printf("stack is empty\n");
     } else {
-        printf("current stack is: ");
         for (int i = 0; i <= top; i++) {
             printf("%d ", stack[i]);
         }

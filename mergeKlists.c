@@ -1,3 +1,4 @@
+//Muhammed Sinan D
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -35,7 +36,7 @@ void traverse(struct Node* head) {
 void mergeSortedList(struct Node** head,struct Node** head2){
     struct Node* temp=*head;
     struct Node* temp2=*head2;
-    // struct Node* temp3=*head3;
+
     while(temp!=NULL){
         insertAtEnd(head2,temp->data);
         temp=temp->next;
@@ -63,3 +64,11 @@ void main(){
     }
     return;
 }
+// enter the number of lists u wanna merge(K): 2
+
+// enter the length of 1th list: 3
+// enter the list 1: 1 2 3
+// 1 -> 2 -> 3 -> NULL
+// enter the length of 2th list: 2
+// enter the list 2: 4 5
+// 1 -> 2 -> 3 -> 4 -> 5 -> NULL

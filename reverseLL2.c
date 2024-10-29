@@ -25,38 +25,22 @@ void traverse(struct Node* head){
     }
     printf("NULL\n");
 }
-int stack[100];
-int top=-1;
-void push(int val){
-    if(top>=69){
-        printf("stack full");
-    }
-    else{
-        top++;
-        stack[top]=val;
-    }
+void swap(int *a,int *b){
+    int temp=*a;
+    *a=*b;
+    *b=temp;
 }
-int pop(){
-    if(top<0){
-        printf("stack empty");
-        return -1;
-    }
-    else{
-        int val=stack[top];
-        top--;
-        return val;
-    }
-}
+void reverseLL(struct Node** head){
+    struct Node* temp=*head;
+    struct Node* prev=*head;
+    struct Node* ptr=*head;
 
-void reverseLL(struct Node** head) {
-    struct Node* temp = *head;
     while(temp!=NULL){
-        push(temp->data);
-        temp=temp->next;
-    }
-    temp=*head;
-    while(temp!=NULL){
-        temp->data=pop();
+        ptr=ptr->next;
+        if(ptr->data<prev->data){
+            swap(&ptr->data,&prev->data);
+        }
+        prev=ptr;
         temp=temp->next;
     }
 }
@@ -72,6 +56,5 @@ void main(){
     printf("Reversed List: ");
     traverse(head);
     return;
+    return;
 }
-// Original List: 4 ->3 ->2 ->1 ->NULL
-// Reversed List: 1 ->2 ->3 ->4 ->NULL

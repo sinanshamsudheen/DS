@@ -41,9 +41,21 @@ void sortList(struct Node** head,struct Node** head2){
         len++;
         temp=temp->next;
     }
+void swap(struct Node* ptr1,struct Node* ptr2){
+    
+}
     for(int i=0;i<len;i++){
         for(int j=0;j<len-i-1;j++){
             if(arr[j]>arr[j+1]){
+                int temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
+            }
+        }
+    }
+    for(int i=0;i<len;i++){
+        for(int j=0;j<len-i-1;j++){
+            if(>arr[j+1]){
                 int temp=arr[j];
                 arr[j]=arr[j+1];
                 arr[j+1]=temp;
@@ -88,8 +100,8 @@ void main(){
     traverse(headMerge);
     return;
 }
-// op,
 // enter the limit: 3
-// enter the list: 5 8 2
-// 5 -> 8 -> 2 -> NULL
-// sorted list: 2 -> 5 -> 8 -> NULL
+// enter the list: 7 4 2
+// 7 -> 4 -> 2 -> NULL
+// sorted list: 2 -> 4 -> 7 -> NULL
+// merged list: 7 -> 4 -> 2 -> 2 -> 4 -> 7 -> NULL

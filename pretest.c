@@ -18,7 +18,7 @@ void insertAtend(struct node** head,int data){
         return;
     }
     struct node* temp=*head;
-    while(temp!=NULL){
+    while(temp->next!=NULL){
         temp=temp->next;
     }
     temp->next=newnode;
