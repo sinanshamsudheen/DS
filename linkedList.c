@@ -3,7 +3,7 @@
 
 struct Node{
     int data;
-    struct node *next;
+    struct Node *next;
 };
 
 struct Node* CreateNode(int data){
@@ -44,7 +44,7 @@ void deleteNode(struct Node **head,int key){
     }
 
     while(temp!=NULL && temp->data!=key){
-        prev=temp;
+    prev=temp;
         temp=temp->next;
     }
     if(temp==NULL){
@@ -54,6 +54,24 @@ void deleteNode(struct Node **head,int key){
     free(temp);
 }
 
+void deleteAtNode(struct Node** head,int keyData){
+    struct Node* temp=*head;
+    struct Node* prev=*head;
+    if(temp!=NULL && temp->data==keyData){
+        *head=temp->next;
+        free(temp);
+    }
+    while(temp!=NULL && temp->data!=keyData){
+        prev=temp;
+        temp=temp->next;
+    }
+    if(temp==NULL){
+        printf("data not found!");
+        return;
+    }
+   prev->next=temp->next;
+   free(temp);
+}
 void traverse(struct Node* head) {
     struct Node* temp = head;
     while (temp != NULL) {

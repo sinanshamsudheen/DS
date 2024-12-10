@@ -107,7 +107,6 @@ void Merge(int arr[],int temp[],int start1,int end1, int start2, int end2)
                 j++;k++;
             }
     }
-    //add the remaining elements into temp
     while (i<=end1)
     {
         temp[k]=arr[i];
@@ -127,11 +126,9 @@ void MergeSort(int arr[],int temp[],int start, int end)
 {
     if (start<end)
     {
-        //Find middle
         int middle=(start+end)/2;
         MergeSort(arr,temp,start,middle);
         MergeSort(arr,temp,middle+1,end);
-        //Merge Two halves,back on top of arr
         Merge(arr,temp,start,middle,middle+1,end);
     }
 }

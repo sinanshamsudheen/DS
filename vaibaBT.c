@@ -5,6 +5,7 @@ struct node
     int data;
     struct node *left,*right;
 }*root=NULL,*stack[100];
+
 int top=-1;
 void push(struct node *temp)
 {

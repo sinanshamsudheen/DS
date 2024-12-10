@@ -34,6 +34,57 @@ void transpose(int t[100][3],int s[100][3]){
         }
     }
 }
+void addSparseMatrices(int result[100][3], int s1[100][3], int s2[100][3]) {
+    if (s1[0][0] != s2[0][0] || s1[0][1] != s2[0][1]) {
+        printf("Matrices cannot be added. Dimensions do not match.\n");
+        return;
+    }
+    result[0][0] = s1[0][0];
+    result[0][1] = s1[0][1];
+    int i = 1, j = 1, k = 1;
+
+    while (i <= s1[0][2] && j <= s2[0][2]) {
+        if (s1[i][0] < s2[j][0] || (s1[i][0] == s2[j][0] && s1[i][1] < s2[j][1])) {
+            result[k][0] = s1[i][0];
+            result[k][1] = s1[i][1];
+            result[k][2] = s1[i][2];
+            i++;
+        } else if (s1[i][0] > s2[j][0] || (s1[i][0] == s2[j][0] && s1[i][1] > s2[j][1])) {
+            result[k][0] = s2[j][0];
+            result[k][1] = s2[j][1];
+            result[k][2] = s2[j][2];
+            j++;
+        } else {
+            int sum = s1[i][2] + s2[j][2];
+            if (sum != 0) {
+                result[k][0] = s1[i][0];
+                result[k][1] = s1[i][1];
+                result[k][2] = sum;
+            }
+            i++;
+            j++;
+        }
+        k++;
+    }
+
+    while (i <= s1[0][2]) {
+        result[k][0] = s1[i][0];
+        result[k][1] = s1[i][1];
+        result[k][2] = s1[i][2];
+        i++;
+        k++;
+    }
+
+    while (j <= s2[0][2]) {
+        result[k][0] = s2[j][0];
+        result[k][1] = s2[j][1];
+        result[k][2] = s2[j][2];
+        j++;
+        k++;
+    }
+
+    result[0][2] = k - 1;
+}
 // 15 0 0 22 0 -15 0 11 3 0 0 0 0 0 0 -6 0 0 0 0 0 0 0 0 91 0 0 0 0 0 0 0 28 0 0 0
 void main(){
     int s[100][3],t[100][3],a[6][6];
